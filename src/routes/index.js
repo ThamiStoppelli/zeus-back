@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-router.use("/data", require("./dataRoutes"));
+router.use("/food", require("./foodRoutes"));
 
 module.exports = router;
