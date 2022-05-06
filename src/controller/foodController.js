@@ -43,7 +43,7 @@ module.exports = {
       return res.status(404).send({ error: "ID not found, can't edit" });
     }
   },
-//aaa
+
   delete: async (req, res) => {
     const _id = req.params.id;
     try {
@@ -56,11 +56,41 @@ module.exports = {
   },
 
   totalPrice: async (req, res) => {
-    
+    try {
+      const listFood = await Food.find();
+      var priceItem;
+      var total = 0;
+
+      for(var i = 0; i < listFood.length; i++) {
+        priceItem = listFood[i].price;
+        total+=priceItem;
+      }
+
+      return res.status(200).send({ totalPrice: total });
+    } catch (err) {
+      return res.status(400).send({ error: "Could not find" });
+    }
+  },
+
+  //quantidade total de ração
+  totalAmount: async (req, res) => {
+    try {
+      const listFood = await Food.find();
+      //usar operador sql
+      var amountItem;
+      var total = 0;
+      //commit back
+      for(var i = 0; i < listFood.length; i++) {
+        amountItem = listFood[i].amount;
+        total+=amountItem;
+      }
+
+      return res.status(200).send({ totalAmount: total });
+    } catch (err) {
+      return res.status(400).send({ error: "Could not find" });
+    }
+    //fazer filtro no front, mas posso fazer no back
   }
   
-  //somar o gasto mensal com ração
-  //totalAmount: somar quantidade total de ração mensal
-
-  //ver sobre tipo de input da marca da ração
+  //ver sobre filtro mensal
 };

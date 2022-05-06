@@ -1,7 +1,14 @@
 //qntidade de ração, nome e preço
 const mongoose = require("mongoose");
+const { totalAmount, totalPrice } = require("../controller/foodController");
 
 const FoodSchema = new mongoose.Schema({
+  
+  name: {
+    type: String,
+    required: true,
+  },
+
   price: {
     type: Number,
     required: true,
@@ -12,27 +19,15 @@ const FoodSchema = new mongoose.Schema({
     required: true,
   },
 
-  name: {
-    type: String,
-    required: false,
-  },
-
   description: {
     type: String,
     required: false,
   },
 
-  // created_at: { 
-  //   type: Date, 
-  //   required: true, 
-  //   default: Date.now 
-  // }
-
   //ver sobre o usuário inserir a data
 },
 {
-  timestamps: true
-
+  timestamps: true,
   //https://stackoverflow.com/questions/12669615/add-created-at-and-updated-at-fields-to-mongoose-schemas
 });
 

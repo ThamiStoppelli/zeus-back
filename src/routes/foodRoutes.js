@@ -8,5 +8,7 @@ router.get("/list", controller.list);
 router.get("/getOne/:id", controller.getOne);
 router.delete("/delete/:id", controller.delete);
 router.put("/update/:id", controller.update);
+router.get("/totalPrice", controller.totalPrice);
+router.get("/totalAmount", controller.totalAmount);
 
 module.exports = router;
