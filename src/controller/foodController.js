@@ -80,10 +80,9 @@ module.exports = {
   totalAmount: async (req, res) => {
     try {
       const listFood = await Food.find();
-      //usar operador sql
       var amountItem;
       var total = 0;
-      //commit back
+
       for(var i = 0; i < listFood.length; i++) {
         amountItem = listFood[i].amount;
         total+=amountItem;
@@ -93,7 +92,6 @@ module.exports = {
     } catch (err) {
       return res.status(400).send({ error: "Could not find" });
     }
-    //fazer filtro no front, mas posso fazer no back
   },
 
   //preço total mensal
@@ -108,8 +106,6 @@ module.exports = {
           $lt: new Date(parseInt(year), parseInt(month))
         }
       });
-      // console.log(new Date(parseInt(year), parseInt(month)-1))
-      // console.log(new Date(parseInt(year), parseInt(month)))
       let monthlyPrice = 0;
       for(var i = 0; i < listFood.length; i++){
         monthlyPrice += listFood[i].price;
@@ -120,7 +116,7 @@ module.exports = {
       return res.status(400).send({ error: "Could not add" });
     }
   },
-  // oi
+
   //quantidade total mensal
   totalMonthlyAmount: async (req, res) => {
     const month = req.query.month
