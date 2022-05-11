@@ -11,4 +11,8 @@ router.put("/update/:id", controller.update);
 router.get("/totalPrice", controller.totalPrice);
 router.get("/totalAmount", controller.totalAmount);
 
+router.get("/totalMonthlyPrice", controller.totalMonthlyPrice);
+router.get("/totalMonthlyAmount", controller.totalMonthlyAmount);
+
+
 module.exports = router;

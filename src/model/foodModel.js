@@ -24,11 +24,11 @@ const FoodSchema = new mongoose.Schema({
     required: false,
   },
 
-  //ver sobre o usuário inserir a data
+//ver sobre o usuário inserir a data
 },
 {
   timestamps: true,
-  //https://stackoverflow.com/questions/12669615/add-created-at-and-updated-at-fields-to-mongoose-schemas
+
 });
 
 module.exports = mongoose.model("Food", FoodSchema);

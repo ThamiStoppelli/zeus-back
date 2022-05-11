@@ -1,4 +1,7 @@
+const { query } = require("express");
 const Food = require("../model/foodModel");
+const moment = require('moment')
+
 
 module.exports = {
   create: async (req, res) => {
@@ -55,6 +58,7 @@ module.exports = {
     }
   },
 
+  //preço total de ração
   totalPrice: async (req, res) => {
     try {
       const listFood = await Food.find();
@@ -90,7 +94,55 @@ module.exports = {
       return res.status(400).send({ error: "Could not find" });
     }
     //fazer filtro no front, mas posso fazer no back
-  }
+  },
+
+  //preço total mensal
+  totalMonthlyPrice: async (req, res) => {
+    const month = req.query.month
+    const year = req.query.year
+    const date = new Date()
+    try {
+      const listFood = await Food.find({
+        "createdAt": {
+          $gt: new Date(parseInt(year), parseInt(month)-1),
+          $lt: new Date(parseInt(year), parseInt(month))
+        }
+      });
+      // console.log(new Date(parseInt(year), parseInt(month)-1))
+      // console.log(new Date(parseInt(year), parseInt(month)))
+      let monthlyPrice = 0;
+      for(var i = 0; i < listFood.length; i++){
+        monthlyPrice += listFood[i].price;
+      }
+      return res.status(200).send({ totalMonthlyPrice: monthlyPrice });
+    
+    } catch (err) {
+      return res.status(400).send({ error: "Could not add" });
+    }
+  },
   
-  //ver sobre filtro mensal
+  //quantidade total mensal
+  totalMonthlyAmount: async (req, res) => {
+    const month = req.query.month
+    const year = req.query.year
+    const date = new Date()
+    try {
+      const listFood = await Food.find({
+        "createdAt": {
+          $gt: new Date(parseInt(year), parseInt(month)-1),
+          $lt: new Date(parseInt(year), parseInt(month))
+        }
+      });
+      let monthlyAmount = 0;
+      for(var i = 0; i < listFood.length; i++){
+        monthlyAmount += listFood[i].amount;
+      }
+      return res.status(200).send({ totalMonthlyAmount: monthlyAmount });
+    
+    } catch (err) {
+      console.log(err)
+      return res.status(400).send({ error: "Could not add" });
+    }
+  },
+
 };
